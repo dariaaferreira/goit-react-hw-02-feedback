@@ -6,33 +6,31 @@ import { Notification } from '../Notification/Notification';
 
 export const Feedback = ({ good, neutral, bad, onLeaveFeedback }) => {
 
-    const countTotalFeedback = ({ good, neutral, bad }) => {
+    function countTotalFeedback() {
         return good + neutral + bad;
-    };
-    
-    const countPositiveFeedbackPercentage = ({ good }) => {
-        const total = countTotalFeedback({ good, neutral, bad });
+      }
+      
+      function countPositiveFeedbackPercentage() {
+        const total = countTotalFeedback();
         return total ? Math.round((good / total) * 100) : 0;
-    };
-
-    const totalFeedback = countTotalFeedback({ good, neutral, bad });
-    const positivePercentage = countPositiveFeedbackPercentage({ good, neutral, bad });
-    const options = ['good', 'neutral', 'bad'];
+      }
 
     return (
         <>
             <Section title="Please leave feedback">
-                <FeedbackOptions options={options} onLeaveFeedback={onLeaveFeedback} />
+                <FeedbackOptions 
+                options={['good', 'neutral', 'bad']} 
+                onLeaveFeedback={onLeaveFeedback} />
             </Section>
 
             <Section title="Statistics">
-                {totalFeedback ? (
+                {countTotalFeedback() ? (
                     <Statistics
                         good={good}
                         neutral={neutral}
                         bad={bad}
-                        total={totalFeedback}
-                        positivePercentage={positivePercentage}
+                        total={countTotalFeedback()}
+                        positivePercentage={countPositiveFeedbackPercentage()}
                     />
                 ) : (
                     <Notification message="There is no feedback" />
