@@ -15,7 +15,7 @@ export const Button = styled.button`
   text-transform: capitalize;
   font-weight: 500;
 
-   &:hover, &:focus {
+   &:hover {
     background-color: #2196F3;
     border-style: none;
     color: white;
